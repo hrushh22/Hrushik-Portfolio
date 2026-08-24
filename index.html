@@ -776,11 +776,11 @@
       <span class="stat-label">Publications</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">3</span>
+      <span class="stat-num">4</span>
       <span class="stat-label">Hackathon Awards</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">5</span>
+      <span class="stat-num">7</span>
       <span class="stat-label">Internships</span>
     </div>
     <div class="stat-item">
@@ -830,10 +830,14 @@
 <p>
   I spend most of my time making computers look at videos, fine-tuning models
   that are already too big and occasionally winning hackathons by staying up
-  late - most recently <strong>1st place at the AWS × Cal Poly
+  late - most recently <strong>Best Proposal at the Snapdragon Multiverse
+  Hackathon 2026</strong>, on top of <strong>1st place at the AWS × Cal Poly
   AI Hackathon</strong> and the <strong>Most Innovative Award at the Big Data
-  Hackathon San Diego</strong>. Outside the lab, I'm either at the gym or thinking
-  about going to the gym.
+  Hackathon San Diego</strong>. This past summer I sat with Qualcomm's RFFE
+  hardware team and designed neural networks that predict how real GaAs power
+  amplifiers actually behave - swapping circuit simulators for millisecond
+  inference. Outside the lab, I'm either at the gym or thinking about going
+  to the gym.
 </p>
     </div>
     <div class="info-card reveal">
@@ -943,6 +947,14 @@
         <span class="skill-tag">Computer Vision</span>
       </div>
     </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">📡 RF & Signal Processing</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Keysight ADS (Circuit Envelope)</span>
+        <span class="skill-tag">RF Power Amplifier Behavioral Modeling</span>
+        <span class="skill-tag">5G NR/OFDM Waveform Generation</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -956,6 +968,23 @@
   <div class="timeline">
 
     <div class="timeline-item">
+      <div class="timeline-dot purple"></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">AIML Engineering Intern, MHWS – RFFE</div>
+          <div class="exp-period">May 2026 – Aug 2026</div>
+        </div>
+        <div class="exp-org">Qualcomm Technologies, Inc. · San Diego, CA</div>
+        <ul class="exp-bullets">
+          <li>Developed deep learning-based behavioral models of a Gallium Arsenide (GaAs) RF power amplifier to capture nonlinear amplitude and phase distortion (AM-AM and AM-PM compression) and memory effects, replacing minutes-long Advanced Design System (ADS) Circuit Envelope simulations with millisecond-scale inference.</li>
+          <li>Designed and trained a Temporal Convolutional Network (TCN) using dilated causal convolutions to model the amplifier's memory-dependent nonlinear response, achieving a Normalized Mean Squared Error (NMSE) of -42.69 dB at only 8,448 parameters, a ~18 dB improvement over the physics-based Parallel Hammerstein baseline.</li>
+          <li>Benchmarked the TCN against four parameter-matched neural architectures (Dilated Gated Recurrent Unit, Vector-Decomposed Long Short-Term Memory network, 2D Convolutional network and Generalized Memory Polynomial) across Adjacent Channel Leakage Ratio (ACLR), Error Vector Magnitude (EVM) and NMSE to identify the best-performing model for RF power amplifier characterization.</li>
+          <li>Extended the architecture with a shared-backbone, per-condition linear-head design to generalize across unseen supply voltage, signal bandwidth, input power, carrier frequency and signal type, enabling zero-shot interpolation and sub-second single-file calibration in place of full model retraining.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
       <div class="timeline-dot gold"></div>
       <div class="exp-card">
         <div class="exp-header">
@@ -967,6 +996,22 @@
           <li>Lead data collection and analysis for a campus safety study using drone-captured video (FAA TRUST certified), applying YOLO object detection in Python to track and classify 10,000+ multimodal transportation interactions — pedestrians, cyclists, vehicles, and scooters.</li>
           <li>Design end-to-end computer vision pipeline from data collection through CVAT AI annotation, model training, and statistical analysis to identify near-miss events and safety patterns, establishing baseline metrics for shared street interventions.</li>
           <li>Perform large-scale video data processing and analytics, managing terabyte-scale datasets to extract behavioral insights, speed distributions, and conflict frequencies supporting data-driven safety recommendations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot coral"></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Machine Learning Research Assistant</div>
+          <div class="exp-period">Apr 2026 – Aug 2026</div>
+        </div>
+        <div class="exp-org">DICE Lab · SDSU Research Foundation · San Diego, CA</div>
+        <ul class="exp-bullets">
+          <li>Engineer automated, multi-source data pipelines in Python integrating statewide geospatial, traffic and roadway network data (Caltrans ArcGIS REST services, HPMS, AADT census, SWITRS) for a Caltrans-funded driver distraction research initiative.</li>
+          <li>Develop geometric feature engineering algorithms using Shapely and Pyproj to derive road curvature metrics (radius of curvature, degree of curve, sinuosity) across the California state highway network for downstream crash-risk modeling.</li>
+          <li>Contribute to the experimental and statistical modeling design for a multimodal sensor study (eye-tracking, EEG, and driving simulator data), supporting a planned analytical framework spanning mixed-effects modeling, logistic regression and survival analysis to quantify outdoor advertising's effect on driver distraction.</li>
         </ul>
       </div>
     </div>
@@ -1051,6 +1096,13 @@
       <div class="teaching-org-title">SDSU · College of Sciences &nbsp;&nbsp; San Diego, CA · On-site</div>
       <ul class="ta-list">
         <li class="ta-item">
+          <span class="ta-period">Aug 2026 – Present</span>
+          <span>
+            <span class="ta-course">Graduate Teaching Assistant · CS559: Machine Learning</span>
+            <span class="ta-note"> &nbsp; Office hours for 60+ graduate students; mentored coursework on supervised/unsupervised learning, model evaluation and neural network fundamentals.</span>
+          </span>
+        </li>
+        <li class="ta-item">
           <span class="ta-period">Aug 2025 – Jan 2026</span>
           <span>
             <span class="ta-course">Graduate Teaching Assistant · CS210: Data Structures &amp; Algorithms</span>
@@ -1091,6 +1143,24 @@
     <div class="section-line"></div>
   </div>
   <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-award">🏆 Best Proposal · Snapdragon Multiverse Hackathon 2026</div>
+      <div class="project-title">LABMATE — AUTONOMOUS AI INCIDENT COMMANDER</div>
+      <p class="project-desc">
+        Correlates physical lab-bench telemetry (temperature, humidity, motion) with digital test/CI failures into incidents, then responds with real notifications, physical actuation (LED/buzzer) and a self-learning autonomous recovery workflow — fully simulated with zero real hardware, Jira or Slack access, one config flag from production. An LLM-powered chat panel investigates root cause on demand, grounding every answer in retrieved historical incidents.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span class="tech-chip">Python</span>
+          <span class="tech-chip">LLM Agents</span>
+          <span class="tech-chip">RAG</span>
+          <span class="tech-chip">IoT Simulation</span>
+          <span class="tech-chip">Voice</span>
+        </div>
+        <a href="https://github.com/hrushh22/LabMate" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+    </div>
 
     <div class="project-card reveal">
       <div class="project-award">🏆 1st Place · AWS × Cal Poly AI Hackathon</div>
@@ -1292,6 +1362,13 @@
     <div class="section-line"></div>
   </div>
   <div class="awards-row reveal">
+    <div class="award-card">
+      <div class="award-icon">🏆</div>
+      <div>
+        <div class="award-name">Best Proposal · Snapdragon Multiverse Hackathon 2026 (LabMate)</div>
+        <div class="award-detail">2026</div>
+      </div>
+    </div>
     <div class="award-card">
       <div class="award-icon">🏆</div>
       <div>
