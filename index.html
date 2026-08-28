@@ -756,8 +756,9 @@
   </h1>
   <p class="hero-tagline">
     <strong>AI/ML Researcher and Engineer</strong> building at the intersection of
-    computer vision, machine learning and big data. From drone-captured traffic analytics
-    to award-winning AI products — I ship research that matters.
+    deep learning, computer vision and applied research. From neural models of RF
+    hardware at Qualcomm to autonomous systems and published NLP research, I ship
+    models that make it to production.
   </p>
   <div class="hero-badges">
     <span class="badge badge-cyan">Computer Vision</span>
@@ -765,6 +766,9 @@
     <span class="badge badge-coral">Big Data</span>
     <span class="badge badge-cyan">NLP / LLMs</span>
     <span class="badge badge-gold">Research</span>
+    <span class="badge badge-coral">Deep Learning</span>
+    <span class="badge badge-cyan">Robotics</span>
+    <span class="badge badge-gold">RF & Signal Processing</span>
   </div>
   <div class="hero-cta">
     <a href="#projects" class="btn-primary">View Projects</a>
@@ -820,24 +824,27 @@
   career at the intersection of research and engineering on the Pacific Coast.
 </p>
 <p>
-  My research spans <span class="hl">drone-captured traffic analysis</span>,
+  My research spans <span class="hl">RF hardware modeling</span>,
+  <span class="hl">drone-captured traffic analysis</span>,
   <span class="hl">zero-knowledge proofs for LLM verification</span>,
   and <span class="hl">multimodal AI</span>, published across
   ICDAR 2025, IEEE conferences and peer-reviewed journals. I interned at
   the Indian Institute of Technology Patna's AI-NLP-ML Research Lab and have
-  shipped production ML systems across four internships.
+  shipped production ML systems across multiple internships.
 </p>
 <p>
   I spend most of my time making computers look at videos, fine-tuning models
-  that are already too big and occasionally winning hackathons by staying up
-  late - most recently <strong>Best Proposal at the Snapdragon Multiverse
+  that are already too big, and occasionally winning hackathons by staying up
+  late, most recently <strong>Best Proposal at the Snapdragon Multiverse
   Hackathon 2026</strong>, on top of <strong>1st place at the AWS × Cal Poly
   AI Hackathon</strong> and the <strong>Most Innovative Award at the Big Data
   Hackathon San Diego</strong>. This past summer I sat with Qualcomm's RFFE
   hardware team and designed neural networks that predict how real GaAs power
-  amplifiers actually behave - swapping circuit simulators for millisecond
-  inference. Outside the lab, I'm either at the gym or thinking about going
-  to the gym.
+  amplifiers actually behave, swapping circuit simulators for millisecond
+  inference. I've also taught a 6-DOF robotic arm to pick and place objects
+  in simulation at SDSU's MVP Lab, and built geospatial pipelines for a
+  Caltrans-funded driver-distraction study at DiCE Lab. Outside the lab,
+  you'll find me at the gym, or outside entirely, watching the sun go down.
 </p>
     </div>
     <div class="info-card reveal">
@@ -971,14 +978,14 @@
       <div class="timeline-dot purple"></div>
       <div class="exp-card">
         <div class="exp-header">
-          <div class="exp-role">AIML Engineering Intern, MHWS – RFFE</div>
+          <div class="exp-role">AIML Engineering Intern</div>
           <div class="exp-period">May 2026 – Aug 2026</div>
         </div>
         <div class="exp-org">Qualcomm Technologies, Inc. · San Diego, CA</div>
         <ul class="exp-bullets">
-          <li>Developed deep learning-based behavioral models of a Gallium Arsenide (GaAs) RF power amplifier to capture nonlinear amplitude and phase distortion (AM-AM and AM-PM compression) and memory effects, replacing minutes-long Advanced Design System (ADS) Circuit Envelope simulations with millisecond-scale inference.</li>
-          <li>Designed and trained a Temporal Convolutional Network (TCN) using dilated causal convolutions to model the amplifier's memory-dependent nonlinear response, achieving a Normalized Mean Squared Error (NMSE) of -42.69 dB at only 8,448 parameters, a ~18 dB improvement over the physics-based Parallel Hammerstein baseline.</li>
-          <li>Benchmarked the TCN against four parameter-matched neural architectures (Dilated Gated Recurrent Unit, Vector-Decomposed Long Short-Term Memory network, 2D Convolutional network and Generalized Memory Polynomial) across Adjacent Channel Leakage Ratio (ACLR), Error Vector Magnitude (EVM) and NMSE to identify the best-performing model for RF power amplifier characterization.</li>
+          <li>Designed a deep learning-based behavioral model of a GaAs RF power amplifier to capture nonlinear amplitude/phase distortion (AM-AM and AM-PM compression) and memory effects, replacing circuit simulations spanning minutes to hours with millisecond-scale neural inference.</li>
+          <li>Architected and trained a Temporal Convolutional Network (TCN) using dilated causal convolutions to model memory-dependent nonlinear dynamics, achieving a Normalized Mean Squared Error of -42.69 dB at only 8,448 parameters, an ~18 dB improvement over a classical physics-based (Parallel Hammerstein) baseline.</li>
+          <li>Benchmarked the TCN against four parameter-matched neural architectures (Dilated Gated Recurrent Unit, Vector-Decomposed Long Short-Term Memory network, 2D Convolutional network, and Generalized Memory Polynomial) across Adjacent Channel Leakage Ratio (ACLR), Error Vector Magnitude (EVM), and NMSE to identify the best-performing model for nonlinear time-series regression in RF power amplifier characterization.</li>
           <li>Extended the architecture with a shared-backbone, per-condition linear-head design to generalize across unseen supply voltage, signal bandwidth, input power, carrier frequency and signal type, enabling zero-shot interpolation and sub-second single-file calibration in place of full model retraining.</li>
         </ul>
       </div>
