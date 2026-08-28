@@ -80,6 +80,67 @@
 
   .nav-links a:hover { color: var(--cyan); }
 
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    width: 30px; height: 30px;
+    background: none; border: none; cursor: pointer;
+    padding: 0; flex-shrink: 0;
+  }
+
+  .nav-toggle span {
+    display: block; width: 100%; height: 2px;
+    background: var(--cyan);
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  }
+
+  .nav-toggle span:nth-child(2) { width: 70%; }
+
+  .nav-toggle.open span { width: 100%; }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-links-mobile {
+    display: none;
+    position: absolute;
+    top: 62px; right: 6%;
+    flex-direction: column;
+    list-style: none;
+    min-width: 190px;
+    background: rgba(8,12,24,0.97);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    padding: 0.4rem 0;
+    opacity: 0; transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .nav-links-mobile.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .nav-links-mobile a {
+    display: block;
+    padding: 0.75rem 1.3rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-links-mobile a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
+
+  @media (max-width: 800px) {
+    .nav-toggle { display: flex; }
+    .nav-links-mobile { display: flex; }
+  }
+
   section { position: relative; z-index: 1; padding: 5.5rem 8%; }
 
   #hero {
@@ -376,6 +437,30 @@
     color: var(--cyan); font-size: 0.72rem; top: 0.18rem;
   }
 
+  /* READ MORE / COLLAPSIBLE (shared by Experience + Projects) */
+  .collapsible {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+  }
+
+  .collapsible.expanded { grid-template-rows: 1fr; }
+
+  .collapsible-inner { overflow: hidden; min-height: 0; }
+
+  .exp-collapsible .collapsible-inner { padding-top: 0.9rem; }
+
+  .read-more-row { display: flex; justify-content: flex-end; margin-top: 0.9rem; }
+
+  .read-more-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--cyan); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.5px;
+    padding: 0.2rem 0; transition: color 0.2s;
+  }
+
+  .read-more-btn:hover { color: var(--white); }
+
   /* TEACHING */
   .teaching-block { display: flex; flex-direction: column; gap: 2rem; }
 
@@ -457,7 +542,10 @@
   .project-footer {
     display: flex; align-items: center;
     justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 0.9rem;
   }
+
+  .proj-collapsible .collapsible-inner { padding-top: 0.2rem; }
 
   .project-tech { display: flex; flex-wrap: wrap; gap: 0.38rem; }
 
@@ -744,6 +832,17 @@
     <li><a href="#publications">Research</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links-mobile" id="navLinksMobile">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -983,12 +1082,19 @@
           <div class="exp-period">May 2026 – Aug 2026</div>
         </div>
         <div class="exp-org">Qualcomm Technologies, Inc. · San Diego, CA</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Designed a deep learning-based behavioral model of a GaAs RF power amplifier to capture nonlinear amplitude/phase distortion (AM-AM and AM-PM compression) and memory effects, replacing circuit simulations spanning minutes to hours with millisecond-scale neural inference.</li>
           <li>Architected and trained a Temporal Convolutional Network (TCN) using dilated causal convolutions to model memory-dependent nonlinear dynamics, achieving a Normalized Mean Squared Error of -42.69 dB at only 8,448 parameters, an ~18 dB improvement over a classical physics-based (Parallel Hammerstein) baseline.</li>
           <li>Benchmarked the TCN against four parameter-matched neural architectures (Dilated Gated Recurrent Unit, Vector-Decomposed Long Short-Term Memory network, 2D Convolutional network, and Generalized Memory Polynomial) across Adjacent Channel Leakage Ratio (ACLR), Error Vector Magnitude (EVM), and NMSE to identify the best-performing model for nonlinear time-series regression in RF power amplifier characterization.</li>
           <li>Extended the architecture with a shared-backbone, per-condition linear-head design to generalize across unseen supply voltage, signal bandwidth, input power, carrier frequency and signal type, enabling zero-shot interpolation and sub-second single-file calibration in place of full model retraining.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1000,11 +1106,18 @@
           <div class="exp-period">Dec 2025 – Present</div>
         </div>
         <div class="exp-org">STAR Lab · SDSU Research Foundation · San Diego, CA</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Lead data collection and analysis for a campus safety study using drone-captured video (FAA TRUST certified), applying YOLO object detection in Python to track and classify 10,000+ multimodal transportation interactions — pedestrians, cyclists, vehicles, and scooters.</li>
           <li>Design end-to-end computer vision pipeline from data collection through CVAT AI annotation, model training, and statistical analysis to identify near-miss events and safety patterns, establishing baseline metrics for shared street interventions.</li>
           <li>Perform large-scale video data processing and analytics, managing terabyte-scale datasets to extract behavioral insights, speed distributions, and conflict frequencies supporting data-driven safety recommendations.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1016,11 +1129,18 @@
           <div class="exp-period">Apr 2026 – Aug 2026</div>
         </div>
         <div class="exp-org">DICE Lab · SDSU Research Foundation · San Diego, CA</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Engineer automated, multi-source data pipelines in Python integrating statewide geospatial, traffic and roadway network data (Caltrans ArcGIS REST services, HPMS, AADT census, SWITRS) for a Caltrans-funded driver distraction research initiative.</li>
           <li>Develop geometric feature engineering algorithms using Shapely and Pyproj to derive road curvature metrics (radius of curvature, degree of curve, sinuosity) across the California state highway network for downstream crash-risk modeling.</li>
           <li>Contribute to the experimental and statistical modeling design for a multimodal sensor study (eye-tracking, EEG, and driving simulator data), supporting a planned analytical framework spanning mixed-effects modeling, logistic regression and survival analysis to quantify outdoor advertising's effect on driver distraction.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1032,11 +1152,18 @@
           <div class="exp-period">Aug 2025 – Jan 2026</div>
         </div>
         <div class="exp-org">MVP Lab · San Diego State University · San Diego, CA </div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Developed an autonomous pick-and-place robotic manipulation system for a 6-DOF Lebai robotic arm using ROS 2 Humble and Gazebo simulation, implementing joint trajectory control and gripper automation with Python.</li>
           <li>Configured and integrated the ros2_control hardware abstraction layer with JointTrajectoryController and ForwardCommandController, enabling precise 6-axis arm movement and gripper operation in a physics-based simulation environment.</li>
           <li>Built a containerized robotics development environment with Docker, facilitating real-world task simulations.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1048,11 +1175,18 @@
           <div class="exp-period">Jan 2024 – Jul 2025</div>
         </div>
         <div class="exp-org">AI-NLP-ML Research Lab · Indian Institute of Technology Patna</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Developed multimodal summarization framework on 7,130 Reddit threads achieving 6% ROUGE improvement with BERT + GPT-2 decoder with cross-attention ablation; published at ICDAR 2025.</li>
           <li>Built timeline-based knowledge graph system with REBEL extraction and Neo4j, boosting ROUGE-1 by 19% on QMSum (1,800+ transcripts).</li>
           <li>Benchmarked 6 LLMs including LLaMA 3, Mistral, and Phi-3 — identified 21% gain via Chain-of-Thought prompting; deployed with vLLM for research team.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1064,11 +1198,18 @@
           <div class="exp-period">Dec 2024 – May 2025</div>
         </div>
         <div class="exp-org">Hum1AI</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Designed MetaHuman avatar pipeline on AWS SageMaker (NVIDIA A10G) using Audio2Face, reducing deployment time by 40% via optimized Docker CI/CD workflows.</li>
           <li>Fine-tuned Mistral 7B on 5K domain documents using LoRA and PyTorch, integrating OpenAI function-calling to automate dashboard generation and eliminate manual report assembly.</li>
           <li>Built production-grade MLOps pipeline with DVC, pytest, and Lambda achieving 99.5% uptime with K-S drift detection (0.15 threshold) and automated retraining.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1080,11 +1221,18 @@
           <div class="exp-period">Jul 2023 – Dec 2023</div>
         </div>
         <div class="exp-org">Apps Magnet</div>
-        <ul class="exp-bullets">
+        <div class="collapsible exp-collapsible">
+          <div class="collapsible-inner">
+            <ul class="exp-bullets">
           <li>Cut ad processing latency by 65% (2.3s to 0.8s) using parallel processing with ThreadPoolExecutor and Redis caching, enabling real-time analytics for 100K+ daily records from Facebook Graph and Google Ads APIs.</li>
           <li>Improved NLP summarization accuracy by 25% using sentence-transformers and spaCy NER; deployed on AWS EC2 auto-scaling for 10K+ articles/day.</li>
           <li>Automated blog thumbnail generation with DALL-E and KeyBERT prompt engineering, achieving 92% user satisfaction via AWS S3/CloudFront CDN.</li>
         </ul>
+          </div>
+        </div>
+        <div class="read-more-row">
+          <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        </div>
       </div>
     </div>
 
@@ -1155,17 +1303,22 @@
     <div class="project-card reveal">
       <div class="project-award">🏆 Best Proposal · Snapdragon Multiverse Hackathon 2026</div>
       <div class="project-title">LABMATE — AUTONOMOUS AI INCIDENT COMMANDER</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         Correlates physical lab-bench telemetry (temperature, humidity, motion) with digital test/CI failures into incidents, then responds with real notifications, physical actuation (LED/buzzer) and a self-learning autonomous recovery workflow — fully simulated with zero real hardware, Jira or Slack access, one config flag from production. An LLM-powered chat panel investigates root cause on demand, grounding every answer in retrieved historical incidents.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">Python</span>
           <span class="tech-chip">LLM Agents</span>
           <span class="tech-chip">RAG</span>
           <span class="tech-chip">IoT Simulation</span>
           <span class="tech-chip">Voice</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/hrushh22/LabMate" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
@@ -1173,17 +1326,22 @@
     <div class="project-card reveal">
       <div class="project-award">🏆 1st Place · AWS × Cal Poly AI Hackathon</div>
       <div class="project-title">PREPPAL</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         AI interview coach with real-time body language analysis via Claude Vision API at 5-second intervals. Resume-job matching drives personalized behavioral and technical question generation. Voice synthesis via Amazon Polly with persistent DynamoDB sessions.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">Next.js 15</span>
           <span class="tech-chip">FastAPI</span>
           <span class="tech-chip">AWS Bedrock</span>
           <span class="tech-chip">Claude Vision</span>
           <span class="tech-chip">DynamoDB</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/hrushh22/SDSU-AI-Interview-Coach" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
@@ -1191,11 +1349,12 @@
     <div class="project-card reveal">
       <div class="project-award">🏆 Most Innovative · Big Data Hackathon San Diego</div>
       <div class="project-title">VOICELINK</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         AI voice assistant helping people experiencing homelessness find shelter, food and healthcare with a single voice command. One button. One voice command. Five nearby options with addresses, hours and phone numbers - no app download, no account, no typing required.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">Python</span>
           <span class="tech-chip">Flask</span>
           <span class="tech-chip">LLM</span>
@@ -1203,88 +1362,118 @@
           <span class="tech-chip">Streamlit</span>
           <span class="tech-chip">Geodesic Algo</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/AdithKadam/VoiceLink" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
 
     <div class="project-card reveal">
       <div class="project-title">EVE — AI ASSISTANT</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         RAG-powered voice assistant with real-time lip-sync animation. Integrates Whisper for speech recognition and Rhubarb for lip-sync, backed by MongoDB vector storage with sentence-transformers for multimodal conversational AI.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">React Three Fiber</span>
           <span class="tech-chip">Flask</span>
           <span class="tech-chip">Whisper</span>
           <span class="tech-chip">MongoDB</span>
           <span class="tech-chip">RAG</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/aditka2/Codeshastra_NinjasInParis" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
 
     <div class="project-card reveal">
       <div class="project-title">DRONE TRAFFIC ANALYTICS</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         End-to-end drone video pipeline for pedestrian and vehicle tracking at intersections. YOLOv8 detection with Deep SORT multi-object tracking, ensemble model experiments (YOLOv8n + YOLOv8l), and automated FFmpeg preprocessing for 10,000+ frames at SDSU STAR Lab.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">YOLOv8</span>
           <span class="tech-chip">Deep SORT</span>
           <span class="tech-chip">PyTorch</span>
           <span class="tech-chip">FFmpeg</span>
           <span class="tech-chip">CVAT AI</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
+        
       </div>
     </div>
 
     <div class="project-card reveal">
       <div class="project-award">🚀 Local People's Choice · NASA SpaceApps 2023</div>
       <div class="project-title">OPEN SCIENCE MARKETPLACE</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         Full-stack platform for connecting researchers and collaborators on open science projects. Built with a team of six at NASA's SpaceApps Challenge in Thane District, winning the Local People's Choice Award for innovation in democratizing access to scientific research.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">Full-Stack Web</span>
           <span class="tech-chip">Open Science</span>
           <span class="tech-chip">NASA SpaceApps</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/hrushh22/SpaceApps" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
 
     <div class="project-card reveal">
       <div class="project-title">CONNECT</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         Full-stack real-time chat application built with the MERN stack and Socket.io for instant messaging functionality. Features real-time bidirectional communication, persistent message storage, and a responsive React frontend.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">MongoDB</span>
           <span class="tech-chip">Express.js</span>
           <span class="tech-chip">React</span>
           <span class="tech-chip">Node.js</span>
           <span class="tech-chip">Socket.io</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/hrushh22/Connect-Real-time-Communication-Platform" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
 
     <div class="project-card reveal">
       <div class="project-title">SMART GARBAGE MONITORING</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         IoT-driven smart bin system with real-time fill-level sensing and methane gas mapping for urban waste management. Enables route optimization for collection vehicles and environmental monitoring. Published in Mathematical Modelling of Engineering Problems (2025).
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">IoT</span>
           <span class="tech-chip">Methane Sensing</span>
           <span class="tech-chip">Smart Cities</span>
           <span class="tech-chip">Real-time Systems</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/harshilshah99/Smart-Garbage-Monitoring-System" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
@@ -1292,16 +1481,21 @@
     <div class="project-card reveal">
       <div class="project-award">🏅 Top 10 · TSEC HACKS 24</div>
       <div class="project-title">MEDIBUDDY</div>
-      <p class="project-desc">
+      <div class="collapsible proj-collapsible">
+        <div class="collapsible-inner">
+          <p class="project-desc">
         Medical data accessibility platform using OCR and NLP to extract and structure patient information from diagnostic reports. Features chatbot integration for natural language queries and multi-page document support. Top 10 finalist at TSEC HACKS 24.
       </p>
-      <div class="project-footer">
-        <div class="project-tech">
+          <div class="project-tech">
           <span class="tech-chip">OCR</span>
           <span class="tech-chip">NLP</span>
           <span class="tech-chip">Chatbot</span>
           <span class="tech-chip">Healthcare AI</span>
         </div>
+        </div>
+      </div>
+      <div class="project-footer">
+        <button class="read-more-btn" type="button" onclick="toggleCollapsible(this)">Read more &#8595;</button>
         <a href="https://github.com/shubh56/Hacks24-SIGH" target="_blank" class="project-link">GitHub ↗</a>
       </div>
     </div>
@@ -1516,7 +1710,7 @@
   document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
 
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  const navLinks = document.querySelectorAll('.nav-links a, .nav-links-mobile a');
 
   window.addEventListener('scroll', () => {
     let current = '';
@@ -1527,6 +1721,49 @@
       link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--cyan)' : '';
     });
   });
+
+  // Mobile nav dropdown
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinksMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinksMobile.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!navToggle.contains(e.target) && !navLinksMobile.contains(e.target)) {
+      navLinksMobile.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Read more / accordion (Experience + Projects) — only one card open per section at a time
+  function toggleCollapsible(btn) {
+    const card = btn.closest('.exp-card, .project-card');
+    const collapsible = card.querySelector('.collapsible');
+    const group = collapsible.classList.contains('exp-collapsible') ? 'exp-collapsible' : 'proj-collapsible';
+    const willExpand = !collapsible.classList.contains('expanded');
+
+    document.querySelectorAll('.' + group + '.expanded').forEach(el => {
+      el.classList.remove('expanded');
+      const otherCard = el.closest('.exp-card, .project-card');
+      const otherBtn = otherCard && otherCard.querySelector('.read-more-btn');
+      if (otherBtn) otherBtn.innerHTML = 'Read more &#8595;';
+    });
+
+    if (willExpand) {
+      collapsible.classList.add('expanded');
+      btn.innerHTML = 'Show less &#8593;';
+    }
+  }
 
   // Hero photo carousel
   let slideIndex = 0;
